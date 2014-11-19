@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+build/Makefile
+build/CharA_d
+build/CMakeCache.txt
+
+doc/*
