@@ -90,7 +90,12 @@ void CAViewer::draw()
     //glTranslatef( m_target.x, m_target.y, m_target.z);
     glColor3f( 1, 1, 0);
     //draw_cube();
-    bvhDrawGL(*m_bvh, m_bvhFrame);
+    bvhDrawGL(*m_bvh, 1);
+    glColor3f(0, 0, 1);
+    bvhTransitionDrawGL(*m_bvh, 1, *m_bvh, 10, 0.5);
+    glColor3f(0, 1, 0);
+    bvhDrawGL(*m_bvh, 10);
+
     glPopMatrix();
 
 	glPopMatrix();
@@ -198,12 +203,13 @@ void CAViewer::bvhDrawGLRec(const chara::BVHJoint& bvhj, int frameNumber)
 	glPushMatrix();
 	float offsetx, offsety, offsetz;
 	bvhj.getOffset(offsetx, offsety, offsetz);
-/*
+
 	// Dessin de l'os
 	glBegin(GL_LINES);
 	glVertex3f(0.f, 0.f, 0.f);
+	glVertex3f(offsetx, offsety, offsetz);
 	glEnd();
-*/
+
 	// Dessin de l'articulation
 	glTranslatef(offsetx, offsety, offsetz);
 
@@ -239,11 +245,6 @@ void CAViewer::bvhDrawGLRec(const chara::BVHJoint& bvhj, int frameNumber)
 			}
 		}
 	}
-/*
-	glBegin(GL_LINES);
-	glVertex3f(0.f, 0.f, 0.f);
-	glEnd();
-*/
 	draw_cube();
 
 	for(int i = 0; i < bvhj.getNumChild(); i++)
@@ -252,3 +253,92 @@ void CAViewer::bvhDrawGLRec(const chara::BVHJoint& bvhj, int frameNumber)
 	glPopMatrix();
 }
 
+void CAViewer::bvhTransitionDrawGL(const chara::BVH& bvhSRC, int frameNumberSRC,
+		const chara::BVH& bvhDST, int frameNumberDST, const float interpolationValue)
+{	
+	bvhTransitionDrawGLRec(*(bvhSRC.getRoot()), frameNumberSRC, *(bvhDST.getRoot()), 
+		frameNumberDST, interpolationValue);
+}
+
+void CAViewer::bvhTransitionDrawGLRec(const chara::BVHJoint& bvhjSRC, int frameNumberSRC, 
+		const chara::BVHJoint& bvhjDST, int frameNumberDST, 
+		const float interpolationValue)
+{
+	glPushMatrix();
+
+	math::Quaternion Qsrc;
+	math::Quaternion Qdst;
+	math::Quaternion Qinterpol;
+	math::Vec3f translationSRC;
+	math::Vec3f translationDST;
+	math::Vec3f axeRotation;
+	float offsetx, offsety, offsetz, angle;
+	chara::BVHChannel * bvhcSRC;
+	chara::BVHChannel * bvhcDST;
+
+	bvhjSRC.getOffset(offsetx, offsety, offsetz);
+
+	// Dessin de l'os
+	glBegin(GL_LINES);
+	glVertex3f(0.f, 0.f, 0.f);
+	glVertex3f(offsetx, offsety, offsetz);
+	glEnd();
+
+	// Dessin de l'articulation
+	glTranslatef(offsetx, offsety, offsetz);
+
+	for(int i =0; i < bvhjSRC.getNumChannel(); i++)
+	{
+		bvhcSRC = bvhjSRC.getChannel(i);
+		bvhcDST = bvhjDST.getChannel(i);
+		if(bvhcSRC->isRotation()) {
+			switch(bvhcSRC->getAxis()) {
+				case chara::AXIS_X :
+					Qsrc.setAxisAngle(math::Vec3f(1.f, 0.f, 0.f), bvhcSRC->getData(frameNumberSRC) * M_PI / 180);
+					Qdst.setAxisAngle(math::Vec3f(1.f, 0.f, 0.f), bvhcDST->getData(frameNumberDST) * M_PI / 180);
+					break;
+				case chara::AXIS_Y :
+					Qsrc.setAxisAngle(math::Vec3f(0.f, 1.f, 0.f), bvhcSRC->getData(frameNumberSRC) * M_PI / 180);
+					Qdst.setAxisAngle(math::Vec3f(0.f, 1.f, 0.f), bvhcDST->getData(frameNumberDST) * M_PI / 180);
+					break;
+				case chara::AXIS_Z :
+					Qsrc.setAxisAngle(math::Vec3f(0.f, 0.f, 1.f), bvhcSRC->getData(frameNumberSRC) * M_PI / 180);
+					Qdst.setAxisAngle(math::Vec3f(0.f, 0.f, 1.f), bvhcDST->getData(frameNumberDST) * M_PI / 180);
+					break;
+				default : break;
+			}
+		}
+		else {
+			switch(bvhcSRC->getAxis()) {
+				case chara::AXIS_X :
+					translationSRC.x = bvhcSRC->getData(frameNumberSRC);
+					translationDST.x = bvhcDST->getData(frameNumberDST);
+					break;
+				case chara::AXIS_Y :
+					translationSRC.y = bvhcSRC->getData(frameNumberSRC);
+					translationDST.y = bvhcDST->getData(frameNumberDST);
+					break;
+				case chara::AXIS_Z :
+					translationSRC.z = bvhcSRC->getData(frameNumberSRC);
+					translationDST.z = bvhcDST->getData(frameNumberDST);
+					break;
+				default : break;
+			}
+		}
+	}
+	Qinterpol = math::Quaternion::slerp(Qsrc, Qdst, interpolationValue);
+	Qinterpol.getAxisAngle(axeRotation, angle);
+	glTranslatef(interpolationValue * translationSRC.x + (1 - interpolationValue) * translationDST.x,
+		interpolationValue * translationSRC.y + (1 - interpolationValue) * translationDST.y,
+		interpolationValue * translationSRC.z + (1 - interpolationValue) * translationDST.z);
+
+	glRotatef(angle * 180 / M_PI, axeRotation.x, axeRotation.y, axeRotation.z);
+
+	draw_cube();
+
+	for(int i = 0; i < bvhjSRC.getNumChild(); i++)
+		bvhTransitionDrawGLRec(*(bvhjSRC.getChild(i)), frameNumberSRC, *(bvhjDST.getChild(i)),
+			frameNumberDST, interpolationValue);
+
+	glPopMatrix();
+}

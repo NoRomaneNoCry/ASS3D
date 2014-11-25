@@ -24,6 +24,11 @@ public:
 	/** TP1 */
 	void bvhDrawGL(const chara::BVH& , int frameNumber);
 	void bvhDrawGLRec(const chara::BVHJoint& , int frameNumber);
+	void bvhTransitionDrawGL(const chara::BVH& bvhSRC, int frameNumberSRC, 
+		const chara::BVH& bvhDST, int frameNumberDST, const float interpolationValue);
+	void bvhTransitionDrawGLRec(const chara::BVHJoint& bvhjSRC, int frameNumberSRC, 
+		const chara::BVHJoint& bvhjDST, int frameNumberDST, 
+		const float interpolationValue);
 
 protected :
 
