@@ -90,11 +90,13 @@ void CAViewer::draw()
     //glTranslatef( m_target.x, m_target.y, m_target.z);
     glColor3f( 1, 1, 0);
     //draw_cube();
-    bvhDrawGL(*m_bvh, 1);
+    bvhDrawGL(*m_bvh, m_bvhFrame);
+
     glColor3f(0, 0, 1);
-    bvhTransitionDrawGL(*m_bvh, 1, *m_bvh, 10, 0.5);
+    bvhTransitionDrawGL(*m_bvh, m_bvhFrame, *m_bvh, m_bvhFrame+5, 0.5);
+    
     glColor3f(0, 1, 0);
-    bvhDrawGL(*m_bvh, 10);
+    bvhDrawGL(*m_bvh, m_bvhFrame + 5);
 
     glPopMatrix();
 
@@ -269,6 +271,7 @@ void CAViewer::bvhTransitionDrawGLRec(const chara::BVHJoint& bvhjSRC, int frameN
 	math::Quaternion Qsrc;
 	math::Quaternion Qdst;
 	math::Quaternion Qinterpol;
+
 	math::Vec3f translationSRC;
 	math::Vec3f translationDST;
 	math::Vec3f axeRotation;
@@ -294,16 +297,16 @@ void CAViewer::bvhTransitionDrawGLRec(const chara::BVHJoint& bvhjSRC, int frameN
 		if(bvhcSRC->isRotation()) {
 			switch(bvhcSRC->getAxis()) {
 				case chara::AXIS_X :
-					Qsrc.setAxisAngle(math::Vec3f(1.f, 0.f, 0.f), bvhcSRC->getData(frameNumberSRC) * M_PI / 180);
-					Qdst.setAxisAngle(math::Vec3f(1.f, 0.f, 0.f), bvhcDST->getData(frameNumberDST) * M_PI / 180);
+					Qsrc *= math::Quaternion(math::Vec3f(1.f, 0.f, 0.f), bvhcSRC->getData(frameNumberSRC) * M_PI / 180);
+					Qdst *= math::Quaternion(math::Vec3f(1.f, 0.f, 0.f), bvhcDST->getData(frameNumberDST) * M_PI / 180);
 					break;
 				case chara::AXIS_Y :
-					Qsrc.setAxisAngle(math::Vec3f(0.f, 1.f, 0.f), bvhcSRC->getData(frameNumberSRC) * M_PI / 180);
-					Qdst.setAxisAngle(math::Vec3f(0.f, 1.f, 0.f), bvhcDST->getData(frameNumberDST) * M_PI / 180);
+					Qsrc *= math::Quaternion(math::Vec3f(0.f, 1.f, 0.f), bvhcSRC->getData(frameNumberSRC) * M_PI / 180);
+					Qdst *= math::Quaternion(math::Vec3f(0.f, 1.f, 0.f), bvhcDST->getData(frameNumberDST) * M_PI / 180);
 					break;
 				case chara::AXIS_Z :
-					Qsrc.setAxisAngle(math::Vec3f(0.f, 0.f, 1.f), bvhcSRC->getData(frameNumberSRC) * M_PI / 180);
-					Qdst.setAxisAngle(math::Vec3f(0.f, 0.f, 1.f), bvhcDST->getData(frameNumberDST) * M_PI / 180);
+					Qsrc *= math::Quaternion(math::Vec3f(0.f, 0.f, 1.f), bvhcSRC->getData(frameNumberSRC) * M_PI / 180);
+					Qdst *= math::Quaternion(math::Vec3f(0.f, 0.f, 1.f), bvhcDST->getData(frameNumberDST) * M_PI / 180);
 					break;
 				default : break;
 			}
