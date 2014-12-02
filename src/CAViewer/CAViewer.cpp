@@ -8,6 +8,7 @@
 #include <GL/glu.h>
 
 #include "CAViewer.h"
+#include "CASkeleton.h"
 #include <BVH.h>
 #include <BVHChannel.h>
 #include <Mat4.h>
@@ -52,6 +53,7 @@ void CAViewer::init()
 		cout<<"BVH"<<endl;
 		cout<<*m_bvh<<endl;
 		cout<<"------------"<<endl;
+		CASkeleton skelet(*m_bvh);
 	}
 	else cout<<"No BVH\n";
 

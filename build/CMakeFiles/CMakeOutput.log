@@ -704,3 +704,93 @@ Linking C executable cmTryCompileExec4142707407
 make[1] : on quitte le répertoire « /home/romane/Master2/AnimationSimulationScenes3D/CharAnim_m2pro/build/CMakeFiles/CMakeTmp »
 
 
+Determining if the function XOpenDisplay exists in the /usr/lib/i386-linux-gnu/libX11.so;/usr/lib/i386-linux-gnu/libXext.so passed with the following output:
+Change Dir: /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3061911195/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3061911195.dir/build.make CMakeFiles/cmTryCompileExec3061911195.dir/build
+make[1]: entrant dans le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+/usr/bin/cmake -E cmake_progress_report /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3061911195.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay   -o CMakeFiles/cmTryCompileExec3061911195.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3061911195
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3061911195.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay    CMakeFiles/cmTryCompileExec3061911195.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3061911195 -rdynamic -lX11 -lXext 
+make[1]: quittant le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+
+
+Determining if the function gethostbyname exists passed with the following output:
+Change Dir: /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec1070777899/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1070777899.dir/build.make CMakeFiles/cmTryCompileExec1070777899.dir/build
+make[1]: entrant dans le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+/usr/bin/cmake -E cmake_progress_report /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1070777899.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=gethostbyname   -o CMakeFiles/cmTryCompileExec1070777899.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1070777899
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1070777899.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=gethostbyname    CMakeFiles/cmTryCompileExec1070777899.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1070777899 -rdynamic 
+make[1]: quittant le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+
+
+Determining if the function connect exists passed with the following output:
+Change Dir: /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2012696344/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2012696344.dir/build.make CMakeFiles/cmTryCompileExec2012696344.dir/build
+make[1]: entrant dans le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+/usr/bin/cmake -E cmake_progress_report /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2012696344.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=connect   -o CMakeFiles/cmTryCompileExec2012696344.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2012696344
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2012696344.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=connect    CMakeFiles/cmTryCompileExec2012696344.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2012696344 -rdynamic 
+make[1]: quittant le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+
+
+Determining if the function remove exists passed with the following output:
+Change Dir: /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3155739976/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3155739976.dir/build.make CMakeFiles/cmTryCompileExec3155739976.dir/build
+make[1]: entrant dans le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+/usr/bin/cmake -E cmake_progress_report /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3155739976.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=remove   -o CMakeFiles/cmTryCompileExec3155739976.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3155739976
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3155739976.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=remove    CMakeFiles/cmTryCompileExec3155739976.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3155739976 -rdynamic 
+make[1]: quittant le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+
+
+Determining if the function shmat exists passed with the following output:
+Change Dir: /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec1343676268/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1343676268.dir/build.make CMakeFiles/cmTryCompileExec1343676268.dir/build
+make[1]: entrant dans le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+/usr/bin/cmake -E cmake_progress_report /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1343676268.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=shmat   -o CMakeFiles/cmTryCompileExec1343676268.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1343676268
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1343676268.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=shmat    CMakeFiles/cmTryCompileExec1343676268.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1343676268 -rdynamic 
+make[1]: quittant le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+
+
+Determining if the function IceConnectionNumber exists in the ICE passed with the following output:
+Change Dir: /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3624679063/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3624679063.dir/build.make CMakeFiles/cmTryCompileExec3624679063.dir/build
+make[1]: entrant dans le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+/usr/bin/cmake -E cmake_progress_report /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3624679063.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber   -o CMakeFiles/cmTryCompileExec3624679063.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3624679063
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3624679063.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber    CMakeFiles/cmTryCompileExec3624679063.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3624679063 -rdynamic -lICE 
+make[1]: quittant le répertoire « /home/apolerag/Master2/ASS3D/build/CMakeFiles/CMakeTmp »
+
+

@@ -126,7 +126,6 @@ int main(int argc, char **argv)
 
 	// Notre init:
 	GLInit(640, 480);
-
 	// La boucle principale
 	glutMainLoop();
 

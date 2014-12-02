@@ -9,26 +9,19 @@
 #include <iostream>
 
 #include <BVH.h>
+#include <BVHJoint.h>
+#include <CAJoint.h>
+#include <Mat4.h>
 
 namespace chara {
-
-
-/*
-	
-class CAJoint
-{
-public:
-   int m_fatherId;        // Le numéro du père dans le tableau de CAJoint de CASkeleton
-   Mat4f m_local2world;   // La matrice passant du repère de l'articulation vers le monde. On peut aussi stocker un quaternion + une translation
-   //Mat4f m_world2local;   // Si besoin : La matrice passant du repère du monde vers l'articulation
-};
-
 
 class CASkeleton
 {
 public:
    //! Créer un squelette ayant la même structure que définit dans le BVH
-   CASkeleton(const BVH& );
+   CASkeleton(const BVH& bvh);
+
+   void initialiseMJointRec(const BVHJoint& bvhj, const int & fatherId);
 
    //! Positionne ce squelette dans la position n du BVH
    void setPose(const BVH& bvh, const int frameNumber);
@@ -49,7 +42,6 @@ private:
    std::vector<CAJoint> m_joint;
 };
 
-*/
 
 } // namespace
 
