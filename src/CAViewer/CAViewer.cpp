@@ -8,7 +8,6 @@
 #include <GL/glu.h>
 
 #include "CAViewer.h"
-#include "CASkeleton.h"
 #include <BVH.h>
 #include <BVHChannel.h>
 #include <Mat4.h>
@@ -53,7 +52,8 @@ void CAViewer::init()
 		cout<<"BVH"<<endl;
 		cout<<*m_bvh<<endl;
 		cout<<"------------"<<endl;
-		CASkeleton skelet(*m_bvh);
+
+		m_skel = new CASkeleton(*m_bvh);
 	}
 	else cout<<"No BVH\n";
 
@@ -90,15 +90,19 @@ void CAViewer::draw()
 
     glPushMatrix();
     //glTranslatef( m_target.x, m_target.y, m_target.z);
-    glColor3f( 1, 1, 0);
+    glColor3f( 1, 0, 0);
     //draw_cube();
     bvhDrawGL(*m_bvh, m_bvhFrame);
-
+    /*
     glColor3f(0, 0, 1);
     bvhTransitionDrawGL(*m_bvh, m_bvhFrame, *m_bvh, m_bvhFrame+5, 0.5);
     
     glColor3f(0, 1, 0);
-    bvhDrawGL(*m_bvh, m_bvhFrame + 5);
+    bvhDrawGL(*m_bvh, m_bvhFrame + 5);*/
+
+    glColor3f(0, 0, 1);
+    m_skel->setPose(*m_bvh, m_bvhFrame);
+    m_skel->drawGL();
 
     glPopMatrix();
 

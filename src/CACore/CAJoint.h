@@ -11,8 +11,6 @@
 #include <BVH.h>
 #include <Mat4.h>
 
-namespace chara {
-
 class CAJoint
 {
 public:
@@ -21,9 +19,7 @@ public:
                           // On peut aussi stocker un quaternion + une translation
    //math::Mat4f m_world2local;   // Si besoin : La matrice passant du repère du monde vers l'articulation
 
-   CAJoint(const int & id, const math::Mat4f & matrice);
+   CAJoint(const int & id);
 };
-
-}
 
 #endif

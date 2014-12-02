@@ -4,6 +4,8 @@
 #include <BVH.h>
 #include <Vec3.h>
 
+#include <CASkeleton.h>
+
 #ifndef _CAVIEWER_H
 #define _CAVIEWER_H
 
@@ -42,10 +44,8 @@ protected :
     //! target point for the IK
     math::Vec3f m_target;
 
-	/// skeleton (build from the mocap-BVH data m_bvh)
-	//CASkeleton*	m_skel;
-
-
+	//! skeleton (build from the mocap-BVH data m_bvh)
+	CASkeleton*	m_skel;
 
 };
 

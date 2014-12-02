@@ -11,17 +11,16 @@
 #include <BVH.h>
 #include <BVHJoint.h>
 #include <CAJoint.h>
-#include <Mat4.h>
 
-namespace chara {
+using namespace chara;
 
 class CASkeleton
 {
 public:
    //! Créer un squelette ayant la même structure que définit dans le BVH
-   CASkeleton(const BVH& bvh);
+   CASkeleton(const BVH& bvh); // VERIFIEE ET OK
 
-   void initialiseMJointRec(const BVHJoint& bvhj, const int & fatherId);
+   void initialiseMJointRec(const BVHJoint& bvhj, const int & fatherId); // VERIFIEE ET OK
 
    //! Positionne ce squelette dans la position n du BVH
    void setPose(const BVH& bvh, const int frameNumber);
@@ -41,8 +40,5 @@ private:
    //! pour tracer les os on utilise l'information "fatherID" de la class CAJoint
    std::vector<CAJoint> m_joint;
 };
-
-
-} // namespace
 
 #endif //
