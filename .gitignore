@@ -27,8 +27,6 @@
 *.out
 *.app
 
-build/Makefile
-build/CharA_d
-build/CMakeCache.txt
+build/*
 
 doc/*
