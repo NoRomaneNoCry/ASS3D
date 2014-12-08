@@ -72,8 +72,8 @@ void CASkeleton::setPose(const BVH& bvh, const int frameNumber) {
 
 		int fatherId = m_joint[jointNb].m_fatherId;
 		if(fatherId >= 0) {
-			rotation *= m_joint[fatherId].m_rotLocal2world;
-			translation += m_joint[fatherId].m_transLocal2world;
+			rotation = m_joint[fatherId].m_rotLocal2world * rotation;
+			translation = m_joint[fatherId].m_rotLocal2world * translation + m_joint[fatherId].m_transLocal2world;
 		}
 
 		m_joint[jointNb].m_transLocal2world = translation;
