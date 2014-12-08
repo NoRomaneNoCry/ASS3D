@@ -4,6 +4,7 @@
 #include <GL/glu.h>
 
 #include "CASkeleton.h"
+
 #include <CAViewer.h>
 
 using namespace chara;
@@ -25,10 +26,10 @@ void CASkeleton::initialiseMJointRec(const BVHJoint& bvhj, const int & fatherId)
 
 void CASkeleton::setPose(const BVH& bvh, const int frameNumber) {
 
-	math::Mat4f local2father;
-	math::Vec3f translation;
-
 	for(int jointNb = 0; jointNb < m_joint.size(); jointNb++) {
+
+		math::Quaternion rotation;
+		math::Vec3f translation;
 
 		const BVHJoint & bvhj = *(bvh.getJoint(jointNb));
 		bvhj.getOffset(translation.x, translation.y, translation.z);
@@ -39,13 +40,16 @@ void CASkeleton::setPose(const BVH& bvh, const int frameNumber) {
 			if(bvhc->isRotation()) {
 				switch(bvhc->getAxis()) {
 					case chara::AXIS_X :
-						local2father.addRotationX(bvhc->getData(frameNumber));
+						rotation *= math::Quaternion(math::Vec3f(1.f, 0.f, 0.f), 
+							bvhc->getData(frameNumber) * M_PI / 180);
 						break;
 					case chara::AXIS_Y :
-						local2father.addRotationY(bvhc->getData(frameNumber));
+						rotation *= math::Quaternion(math::Vec3f(0.f, 1.f, 0.f), 
+							bvhc->getData(frameNumber) * M_PI / 180);
 						break;
 					case chara::AXIS_Z :
-						local2father.addRotationZ(bvhc->getData(frameNumber));
+						rotation *= math::Quaternion(math::Vec3f(0.f, 0.f, 1.f), 
+							bvhc->getData(frameNumber) * M_PI / 180);
 						break;
 					default : break;
 				}
@@ -66,23 +70,36 @@ void CASkeleton::setPose(const BVH& bvh, const int frameNumber) {
 			}
 		}
 
-		local2father += translation;
 		int fatherId = m_joint[jointNb].m_fatherId;
-		if(fatherId >= 0)
-			local2father *= m_joint[fatherId].m_local2world;
+		if(fatherId >= 0) {
+			rotation *= m_joint[fatherId].m_rotLocal2world;
+			translation += m_joint[fatherId].m_transLocal2world;
+		}
 
-		m_joint[jointNb].m_local2world = local2father;
+		m_joint[jointNb].m_transLocal2world = translation;
+		m_joint[jointNb].m_rotLocal2world = rotation;
 	}
 }
 
 void CASkeleton::drawGL() const {
 
 	math::Vec3f translation;
+	math::Vec3f axeRotation;
+	float angleRotation;
+
 	for(int i = 0; i < m_joint.size(); i++) {
+
 		glPushMatrix();
-		translation = m_joint[i].m_local2world.getTranslation();
+
+		translation = m_joint[i].m_transLocal2world;
 		glTranslatef(translation.x, translation.y, translation.z);
+
+		m_joint[i].m_rotLocal2world.getAxisAngle(axeRotation, angleRotation);
+		glRotatef(angleRotation * 180 / M_PI, axeRotation.x, axeRotation.y,
+			axeRotation.z);
+
 		draw_cube();
+
 		glPopMatrix();
 	}
 }

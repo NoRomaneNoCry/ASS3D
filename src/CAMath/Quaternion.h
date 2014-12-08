@@ -25,6 +25,7 @@ along with Sami.  If not, see <http://www.gnu.org/licenses/>.
 #include <Vec3.h>
 #include <math.h>
 #include <iostream>
+#include <cstdlib>
 
 namespace math {
 

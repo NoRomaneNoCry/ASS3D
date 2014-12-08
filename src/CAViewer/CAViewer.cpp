@@ -12,6 +12,7 @@
 #include <BVHChannel.h>
 #include <Mat4.h>
 #include <Quaternion.h>
+#include <CASkeleton.h>
 
 #include "BVHJoint.h"
 
@@ -88,23 +89,9 @@ void CAViewer::draw()
 	glPushMatrix();
 	//if (m_skel) m_skel->render();
 
-    glPushMatrix();
-    //glTranslatef( m_target.x, m_target.y, m_target.z);
-    glColor3f( 1, 0, 0);
-    //draw_cube();
-    bvhDrawGL(*m_bvh, m_bvhFrame);
-    /*
-    glColor3f(0, 0, 1);
-    bvhTransitionDrawGL(*m_bvh, m_bvhFrame, *m_bvh, m_bvhFrame+5, 0.5);
-    
-    glColor3f(0, 1, 0);
-    bvhDrawGL(*m_bvh, m_bvhFrame + 5);*/
-
     glColor3f(0, 0, 1);
     m_skel->setPose(*m_bvh, m_bvhFrame);
     m_skel->drawGL();
-
-    glPopMatrix();
 
 	glPopMatrix();
 }
