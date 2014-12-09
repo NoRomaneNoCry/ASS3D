@@ -93,6 +93,7 @@ void CASkeleton::drawGL() const {
 
 		translation = m_joint[i].m_transLocal2world;
 		if((fatherId = m_joint[i].m_fatherId) >= 0) {
+
 			math::Vec3f coordsFather(m_joint[fatherId].m_transLocal2world);
 
 			glBegin(GL_LINES);
@@ -116,9 +117,14 @@ void CASkeleton::drawGL() const {
 
 float CASkeleton::distance(const CASkeleton& skel) const {
 
-	float distance;
+	float distance = 0.f;
 
-	// TODO
+	for(int i = 0; i < m_joint.size(); i++) {
+
+		math::Vec3f difference = skel.m_joint[i].m_transLocal2world 
+			- m_joint[i].m_transLocal2world;
+		distance += difference.squaredNorm();
+	}
 
 	return distance;
 }
