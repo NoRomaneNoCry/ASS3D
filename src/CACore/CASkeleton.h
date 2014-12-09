@@ -4,7 +4,6 @@
 
 #include <string>
 #include <vector>
-#include <cassert>
 #include <fstream>
 #include <iostream>
 
@@ -23,12 +22,17 @@ public:
    void initialiseMJointRec(const BVHJoint& bvhj, const int & fatherId);
 
    //! Positionne ce squelette dans la position n du BVH
-   void setPose(const BVH& bvh, const int frameNumber);
+   void setPose(const BVH& bvh, const int & frameNumber);
 
    //! Calcule la distance entre deux postures
    //! precond: les deux squelettes doivent avoir le 
    //! même nombre d'articulations (même structure d'arbre)
    float distance(const CASkeleton& skel) const;
+
+   //! Calcule la distance entre deux postures en prenant en compte le sens du
+   // mouvement
+   //! precond: les deux squelettes doivent avoir la même structure d'arbre
+   float temporalDistance(const CASkeleton& skel) const;
 
    //! Affiche en OpenGL le squelette, les liens entre les articulations
    //! sont donnés par le champ m_fatherId de CAJoint

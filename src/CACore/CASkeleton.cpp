@@ -24,9 +24,12 @@ void CASkeleton::initialiseMJointRec(const BVHJoint& bvhj, const int & fatherId)
 	}
 }
 
-void CASkeleton::setPose(const BVH& bvh, const int frameNumber) {
+void CASkeleton::setPose(const BVH& bvh, const int & frameNumber) {
 
-	for(int jointNb = 0; jointNb < m_joint.size(); jointNb++) {
+	m_joint[0].m_transLocal2world = math::Vec3f();
+	m_joint[0].m_rotLocal2world = math::Quaternion();
+
+	for(int jointNb = 1; jointNb < m_joint.size(); jointNb++) {
 
 		math::Quaternion rotation;
 		math::Vec3f translation;
@@ -125,6 +128,15 @@ float CASkeleton::distance(const CASkeleton& skel) const {
 			- m_joint[i].m_transLocal2world;
 		distance += difference.squaredNorm();
 	}
+
+	return distance;
+}
+
+float CASkeleton::temporalDistance(const CASkeleton& skel) const {
+
+	float distance = 0.f;
+
+	// TODO
 
 	return distance;
 }

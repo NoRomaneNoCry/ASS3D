@@ -66,9 +66,10 @@ SET( CHARA_FILES
 
 			./src/CACore/CASkeleton.h
 			./src/CACore/CASkeleton.cpp
-
 			./src/CACore/CAJoint.h
 			./src/CACore/CAJoint.cpp
+			./src/CACore/CAMotionGraph.h
+			./src/CACore/CAMotionGraph.cpp
 
 			./src/CAViewer/Camera.h
 			./src/CAViewer/Viewer.h
