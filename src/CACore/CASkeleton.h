@@ -18,9 +18,9 @@ class CASkeleton
 {
 public:
    //! Créer un squelette ayant la même structure que définit dans le BVH
-   CASkeleton(const BVH& bvh); // VERIFIEE ET OK
+   CASkeleton(const BVH& bvh);
 
-   void initialiseMJointRec(const BVHJoint& bvhj, const int & fatherId); // VERIFIEE ET OK
+   void initialiseMJointRec(const BVHJoint& bvhj, const int & fatherId);
 
    //! Positionne ce squelette dans la position n du BVH
    void setPose(const BVH& bvh, const int frameNumber);

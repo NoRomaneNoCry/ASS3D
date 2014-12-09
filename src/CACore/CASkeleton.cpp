@@ -73,7 +73,8 @@ void CASkeleton::setPose(const BVH& bvh, const int frameNumber) {
 		int fatherId = m_joint[jointNb].m_fatherId;
 		if(fatherId >= 0) {
 			rotation = m_joint[fatherId].m_rotLocal2world * rotation;
-			translation = m_joint[fatherId].m_rotLocal2world * translation + m_joint[fatherId].m_transLocal2world;
+			translation = m_joint[fatherId].m_rotLocal2world * translation 
+				+ m_joint[fatherId].m_transLocal2world;
 		}
 
 		m_joint[jointNb].m_transLocal2world = translation;
@@ -86,12 +87,21 @@ void CASkeleton::drawGL() const {
 	math::Vec3f translation;
 	math::Vec3f axeRotation;
 	float angleRotation;
+	int fatherId;
 
 	for(int i = 0; i < m_joint.size(); i++) {
 
-		glPushMatrix();
-
 		translation = m_joint[i].m_transLocal2world;
+		if((fatherId = m_joint[i].m_fatherId) >= 0) {
+			math::Vec3f coordsFather(m_joint[fatherId].m_transLocal2world);
+
+			glBegin(GL_LINES);
+			glVertex3f(coordsFather.x, coordsFather.y, coordsFather.z);
+			glVertex3f(translation.x, translation.y, translation.z);
+			glEnd();
+		}
+
+		glPushMatrix();
 		glTranslatef(translation.x, translation.y, translation.z);
 
 		m_joint[i].m_rotLocal2world.getAxisAngle(axeRotation, angleRotation);
@@ -102,4 +112,13 @@ void CASkeleton::drawGL() const {
 
 		glPopMatrix();
 	}
+}
+
+float CASkeleton::distance(const CASkeleton& skel) const {
+
+	float distance;
+
+	// TODO
+
+	return distance;
 }
