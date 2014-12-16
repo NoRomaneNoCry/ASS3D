@@ -108,10 +108,6 @@ void CASkeleton::drawGL() const {
 		glPushMatrix();
 		glTranslatef(translation.x, translation.y, translation.z);
 
-		m_joint[i].m_rotLocal2world.getAxisAngle(axeRotation, angleRotation);
-		glRotatef(angleRotation * 180 / M_PI, axeRotation.x, axeRotation.y,
-			axeRotation.z);
-
 		draw_cube();
 
 		glPopMatrix();

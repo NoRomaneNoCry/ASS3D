@@ -18,13 +18,13 @@ public:
 	//! Constructeur comprenant l'identifiant du BVH et le numéro de la frame
 	CAGraphNode(const BVH_ID & bvhId, const int & frame);
 
-	const BVH_ID getIdBVH() const;
-	const int getFrame() const;
+	int getIdBVH() const;
+	int getFrame() const;
 
 	//! Ajoute l'identifiant d'un noeud à la liste des successeurs
 	void addNext(const GraphNodeID & nextId);
 	int getNumNext() const;
-	const GraphNodeID getNext(int index) const;
+	int getNext(int index) const;
 
 private:
 	//! Identifiant de l'animation
@@ -43,11 +43,12 @@ public:
 	CAMotionGraph();
 	void addBVH(chara::BVH * bvh);
 	int getNumBVH() const;
-	chara::BVH * getBVH(int index) const;
+	const chara::BVH * getBVH(int index) const;
 
 	void addNode(const CAGraphNode & node);
 	int getNumGraphNode() const;
-	CAGraphNode * getGraphNode(int index) const;
+
+	void showMotionGraph() const;
 
 private:
 	//! L'ensemble des BVH du graphe d'animation

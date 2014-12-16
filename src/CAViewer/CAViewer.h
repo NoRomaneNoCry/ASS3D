@@ -5,6 +5,7 @@
 #include <Vec3.h>
 
 #include <CASkeleton.h>
+#include <CAMotionGraph.h>
 
 #ifndef _CAVIEWER_H
 #define _CAVIEWER_H
@@ -46,6 +47,9 @@ protected :
 
 	//! skeleton (build from the mocap-BVH data m_bvh)
 	CASkeleton*	m_skel;
+
+	//! Animation graph (build from the mocap-BVH data m_bvh)
+	CAMotionGraph * m_motionGraph;
 
 };
 

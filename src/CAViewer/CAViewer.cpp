@@ -55,6 +55,10 @@ void CAViewer::init()
 		cout<<"------------"<<endl;
 
 		m_skel = new CASkeleton(*m_bvh);
+
+		m_motionGraph = new CAMotionGraph();
+		m_motionGraph->addBVH(m_bvh);
+		m_motionGraph->showMotionGraph();
 	}
 	else cout<<"No BVH\n";
 
