@@ -6,7 +6,8 @@
 CAGraphNode::CAGraphNode(const BVH_ID & bvhId, const int & frame) :
 	m_idBVH(bvhId), m_frame(frame) {
 
-	ids_next = std::vector<GraphNodeID>();
+	m_idsNext = std::vector<GraphNodeID>();
+	m_next = std::vector<CAGraphArc>();
 }
 
 int CAGraphNode::getIdBVH() const {
@@ -18,15 +19,15 @@ int CAGraphNode::getFrame() const {
 }
 
 void CAGraphNode::addNext(const GraphNodeID & nextId) {
-	ids_next.push_back(nextId);
+	m_idsNext.push_back(nextId);
 }
 
 int CAGraphNode::getNumNext() const {
-	return ids_next.size();
+	return m_idsNext.size();
 }
 
 int CAGraphNode::getNext(int index) const {
-	return (int)ids_next[index];
+	return (int)m_idsNext[index];
 }
 
 CAMotionGraph::CAMotionGraph() : m_seuilCompatibilite(200.f) {

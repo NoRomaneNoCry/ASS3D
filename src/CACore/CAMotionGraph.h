@@ -3,12 +3,29 @@
 
 #include <vector>
 #include <BVH.h>
+#include <Quaternion.h>
+#include <Vec3.h>
+
+//! Un noeud du graphe d'animation est repéré par un identifiant
+typedef int GraphNodeID;
+
+// TODO : créer structure arc pour gestion du centre de gravité
+class CAGraphArc
+{
+public:
+	
+private:
+
+	//! Identifiant du noeud du graphe vers lequel on se dirige
+	GraphNodeID m_idDest;
+
+	math::Quaternion m_gravityCenterRot;
+	math::Vec3f m_gravityCenterTrans;
+};
 
 class CAGraphNode
 {
 public:
-	//! Un noeud du graphe d'animation est repéré par un identifiant
-	typedef int GraphNodeID;
 
 	//! Une animation BVH est repérée par identifiant
 	typedef int BVH_ID;
@@ -30,10 +47,12 @@ private:
 	//! Numéro de la frame
 	int m_frame;
 	//! Liste des noeuds successeurs
-	std::vector<GraphNodeID> ids_next;
-};
+	std::vector<GraphNodeID> m_idsNext;
 
-// TODO : créer structure arc pour gestion du centre de gravité
+	//! Liste des arcs qui permettent d'aller aux noeuds successeurs en gérant
+	// la rotation et la translation du centre de gravité
+	std::vector<CAGraphArc> m_next;
+};
 
 class CAMotionGraph
 {
