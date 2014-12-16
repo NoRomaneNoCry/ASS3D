@@ -29,7 +29,7 @@ int CAGraphNode::getNext(int index) const {
 	return (int)ids_next[index];
 }
 
-CAMotionGraph::CAMotionGraph() {
+CAMotionGraph::CAMotionGraph() : m_seuilCompatibilite(200.f) {
 
 	m_BVH = std::vector<chara::BVH *>();
 	m_graphNode = std::vector<CAGraphNode>();
@@ -53,16 +53,13 @@ void CAMotionGraph::addBVH(chara::BVH * bvh) {
 		
 		for(int i = 0; i < getNumGraphNode() - 1; i++) {
 
-			std::cout << "Comparaison frame " << frameNb << " avec "
-				<< m_graphNode[i].getFrame() << std::endl;
-			/*CASkeleton other_skel = CASkeleton(*(getBVH(getGraphNode(i)->getIdBVH())));
-			other_skel.setPose(*(getBVH(getGraphNode(i)->getIdBVH())), 
-				getGraphNode(i)->getFrame());
+			CASkeleton other_skel = CASkeleton(*(m_BVH[m_graphNode[i].getIdBVH()]));
+			other_skel.setPose(*(m_BVH[m_graphNode[i].getIdBVH()]), 
+				m_graphNode[i].getFrame());
 
-			float distance = current_skel.distance(other_skel);
-			std::cout << "Dist = " << distance << std::endl ;
-			//if(distance < SEUIL_COMPATIBILITE)
-				//getGraphNode(i)->addNext(frameNb);*/
+
+			if(current_skel.distance(other_skel) < m_seuilCompatibilite)
+				m_graphNode[i].addNext(frameNb);
 		}
 	}
 }

@@ -42,7 +42,7 @@ void CAViewer::init()
 
 	//std::string fn_front = "G:/alex/code/CharAnim_m2pro/data/OneArm.bvh";
 	//std::string fn_front = "/home/pers/alexandre.meyer/code/CharAnim_m2pro/data/OneArm.bvh";
-	std::string fn_front = "../data/OneArm.bvh";
+	std::string fn_front = "../data/Robot1.bvh";
 
 	if (fn_front!="")
 	{
@@ -94,7 +94,7 @@ void CAViewer::draw()
 	//if (m_skel) m_skel->render();
 
     glColor3f(0, 0, 1);
-    m_skel->setPose(*m_bvh, 1);
+    m_skel->setPose(*m_bvh, m_bvhFrame);
     m_skel->drawGL();
 
 	glPopMatrix();

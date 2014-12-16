@@ -4,8 +4,6 @@
 #include <vector>
 #include <BVH.h>
 
-#define SEUIL_COMPATIBILITE 100.f
-
 class CAGraphNode
 {
 public:
@@ -56,6 +54,8 @@ private:
 
 	//! Tous les noeuds du graphe d'animation
 	std::vector<CAGraphNode> m_graphNode;
+
+	float m_seuilCompatibilite;
 };
 
 #endif
