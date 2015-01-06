@@ -2,10 +2,6 @@
 #include <iostream>
 #include <Camera.h>
 
-
-
-#include <BVH.h>
-
 #ifndef _VIEWER_H
 #define _VIEWER_H
 
@@ -27,7 +23,7 @@ public:
 protected :
 
 	Camera cam;
-	bool bLight;           // lighting on/off
+	bool bLight;    // lighting on/off
 	bool bAxe;		// draw Axe X,Y,Z
 	bool bGrid;		// draw Grid
 	bool bBlend;

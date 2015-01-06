@@ -40,17 +40,13 @@ INCLUDE_DIRECTORIES(${GLUT_INCLUDE_DIR})
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/ext)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/CACore)
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/CALoader)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/CAMath)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/CAPhysics)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/CAViewer)
 
 
 SET( CHARA_FILES
-			./src/CALoader/BVHChannel.cpp
-			./src/CALoader/BVHChannel.h
 
-			./src/CALoader/BVHAxis.h
 			./src/CAMath/Mat4.h
 			./src/CAMath/Vec4.h
 			./src/CAMath/Vec3.h
@@ -58,14 +54,8 @@ SET( CHARA_FILES
 			./src/CAMath/Quaternion.h
 			./src/ext/GLee.h
 
-			./src/CALoader/BVH.h
-			./src/CALoader/BVH.cpp
-
-			./src/CALoader/BVHJoint.h
-			./src/CALoader/BVHJoint.cpp
-
-			./src/CACore/CASkeleton.h
-			./src/CACore/CASkeleton.cpp
+			./src/CACore/CAParticle.h
+			./src/CACore/CAParticle.cpp
 
 			./src/CAViewer/Camera.h
 			./src/CAViewer/Viewer.h
