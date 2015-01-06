@@ -106,7 +106,7 @@ int main(int argc, char **argv)
 	//glutFullScreen();
 
 	// Quand il n'y a aucun évenement, on affiche quand même la scène
-	//glutIdleFunc(&GLUpdate);
+	glutIdleFunc(&GLUpdate);
 
 	// Quand la fenetre change de taille
 	glutReshapeFunc(&GLResize);

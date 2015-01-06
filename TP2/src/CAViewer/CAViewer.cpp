@@ -22,20 +22,22 @@ CAViewer::~CAViewer()
 void CAViewer::init()
 {
 	Viewer::init();
+
+	m_particle = CAParticle(1.2, math::Vec3f(0, 70, 0));
+	// Pour que la particule tombe
+	m_particle.addForce(math::Vec3f(0, -2, 0));
 }
 
 
 
 void CAViewer::draw()
 {
-	glPushMatrix();
-
     glPushMatrix();
     glColor3f( 1, 1, 0);
+    glTranslatef(m_particle.getPosition().x, m_particle.getPosition().y,
+    	m_particle.getPosition().z);
     draw_cube();
     glPopMatrix();
-
-	glPopMatrix();
 }
 
 
@@ -58,4 +60,9 @@ void CAViewer::keyPressed(unsigned char key, int x, int y)
 		Viewer::keyPressed(key,x,y);
 	}
 	updateGL();
+}
+
+void CAViewer::animate() 
+{
+	m_particle.computeOneStep(0.1);
 }
