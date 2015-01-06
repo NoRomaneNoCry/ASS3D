@@ -9,7 +9,7 @@ CAParticle::CAParticle(const float _mass, const math::Vec3f _p) :
 {}
 
 void CAParticle::addForce(const math::Vec3f & af) {
-	f = af;
+	f += af;
 }
 
 void CAParticle::computeOneStep(const float dt) {
@@ -19,6 +19,9 @@ void CAParticle::computeOneStep(const float dt) {
 
 	/* Mise à jour de la position */
 	p = p + dt * v;
+
+	/* Force à 0 */
+	f = math::Vec3f(0,0,0);
 }
 
 math::Vec3f CAParticle::getPosition() const {

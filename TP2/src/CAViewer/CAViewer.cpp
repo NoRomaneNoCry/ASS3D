@@ -24,8 +24,6 @@ void CAViewer::init()
 	Viewer::init();
 
 	m_particle = CAParticle(1.2, math::Vec3f(0, 70, 0));
-	// Pour que la particule tombe
-	m_particle.addForce(math::Vec3f(0, -2, 0));
 }
 
 
@@ -64,5 +62,7 @@ void CAViewer::keyPressed(unsigned char key, int x, int y)
 
 void CAViewer::animate() 
 {
+	// Pour que la particule tombe
+	m_particle.addForce(math::Vec3f(0, -2, 0));
 	m_particle.computeOneStep(0.1);
 }
