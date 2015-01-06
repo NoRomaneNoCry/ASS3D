@@ -17,11 +17,11 @@ void CASpring::set(CAParticle* _p1, CAParticle* _p2, const float _l0, const floa
  
 void CASpring::applyForceToParticles()
 {
-	math::Vec3f l( (p2->getPosition() - p1->getPosition()).norm());
+	float l( (p2->getPosition() - p1->getPosition()).norm());
 	math::Vec3f n12( (p2->getPosition() - p1->getPosition()) / l);
-	math::Vec3f n21( p1->getPosition() - p2->getPosition()) / l);
+	math::Vec3f n21( (p1->getPosition() - p2->getPosition()) / l);
 
 
-	p1->addForce(-k * (l - l0) * n12);
-	p2->addForce(-k * (l - l0) * n21);
+	p1->addForce(k * (l - l0) * n12);
+	p2->addForce(k * (l - l0) * n21);
 }
