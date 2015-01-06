@@ -9,7 +9,6 @@
 #include <Mat4.h>
 #include "Viewer.h"
 
-using namespace chara;
 using namespace std;
 
 // Code ASCII
