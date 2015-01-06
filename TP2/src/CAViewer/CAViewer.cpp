@@ -26,7 +26,7 @@ void CAViewer::init()
 	m_particle = CAParticle(1.2, math::Vec3f(0, 70, 0));
 	m_particle2 = CAParticle(1.2, math::Vec3f(0, 60, 0));
 	// Pour que la particule tombe
-	m_spring = CASpring(&m_particle, &m_particle2, 20, 1);
+	m_spring = CASpring(&m_particle, &m_particle2, 20, 20, 0.5);
 
 }
 
