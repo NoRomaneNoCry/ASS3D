@@ -27,6 +27,8 @@
 *.out
 *.app
 
-build/*
+TP1/build/*
+TP2/build/*
 
-doc/*
+TP1/doc/*
+TP2/doc/*
