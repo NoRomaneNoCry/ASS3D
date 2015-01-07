@@ -20,9 +20,14 @@ public:
 
 	math::Vec3f getPosition() const;
 	math::Vec3f getSpeed() const;
+	void modifyMass(const float _mass);
 
 protected:
+	/*! Mass of the particle, set it with a negative value if you don't want the 
+	 * particle to move 
+	 */
 	float mass;
+	
 	math::Vec3f p;
 	math::Vec3f v;
 	math::Vec3f f;

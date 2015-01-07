@@ -26,3 +26,11 @@ void CASpring::applyForceToParticles()
 	p1->addForce( (k * (l - l0)/l0 + v * (p2->getSpeed() - p1->getSpeed()) * n12 )* n12);
 	p2->addForce( (k * (l - l0)/l0 + v * (p1->getSpeed() - p2->getSpeed()) * n21 )* n21);
 }
+
+CAParticle * CASpring::getParticle1() const {
+	return p1;
+}
+
+CAParticle * CASpring::getParticle2() const {
+	return p2;
+}

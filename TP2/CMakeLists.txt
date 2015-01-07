@@ -58,6 +58,8 @@ SET( CHARA_FILES
 			./src/CACore/CAParticle.cpp
 			./src/CACore/CASpring.h
 			./src/CACore/CASpring.cpp
+			./src/CACore/CADynamicWorld.h
+			./src/CACore/CADynamicWorld.cpp
 
 			./src/CAViewer/Camera.h
 			./src/CAViewer/Viewer.h

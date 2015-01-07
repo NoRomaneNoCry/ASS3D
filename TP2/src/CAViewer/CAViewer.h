@@ -2,8 +2,7 @@
 #include <Viewer.h>
 
 #include <Vec3.h>
-#include <CAParticle.h>
-#include <CASpring.h>
+#include <CADynamicWorld.h>
 
 #ifndef _CAVIEWER_H
 #define _CAVIEWER_H
@@ -22,9 +21,7 @@ public:
 
 protected :
 
-	CAParticle m_particle;
-	CAParticle m_particle2;
-	CASpring m_spring;
+	CADynamicWorld m_world;
 };
 
 #endif

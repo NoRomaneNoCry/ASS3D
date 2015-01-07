@@ -13,6 +13,10 @@ public:
    CASpring(CAParticle* _p1, CAParticle* _p2, const float _l0, const float _k, const float _v);
    void set(CAParticle* _p1, CAParticle* _p2, const float _l0, const float _k, const float _v);
    void applyForceToParticles();
+
+   CAParticle * getParticle1() const;
+   CAParticle * getParticle2() const;
+
 protected:
    CAParticle* p1;
    CAParticle* p2;
