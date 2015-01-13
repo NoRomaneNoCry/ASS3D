@@ -54,6 +54,11 @@ SET( CHARA_FILES
 			./src/CAMath/Quaternion.h
 			./src/ext/GLee.h
 
+			./src/CACore/Array2D.h
+			./src/CACore/Array2D.cpp
+			./src/CACore/ShalowWater.h
+			./src/CACore/ShalowWater.cpp
+
 			./src/CAViewer/Camera.h
 			./src/CAViewer/Viewer.h
 			./src/CAViewer/Viewer.cpp
