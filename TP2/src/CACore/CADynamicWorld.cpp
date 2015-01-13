@@ -1,8 +1,5 @@
 #include "CADynamicWorld.h"
 
-#include <glut.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
 #include <iostream>
 
 const math::Vec3f CADynamicWorld::m_gravity = math::Vec3f(0,-2,0);

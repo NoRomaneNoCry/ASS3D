@@ -7,9 +7,12 @@ class ShallowWater
 {
 public:
    ShallowWater();
-   void init(const int DIMX, const int DIMY);
+   void init(const int DIMX, const int DIMY, const float _dt);
    void draw() const;
    void computeOneStep();
+   void advect(Array2D & dest, const Array2D & src);
+   void updateHeight();
+   void updateVelocities();
    
 protected:
    Array2D m_g;     // height of the ground (0 if flat)
@@ -17,6 +20,8 @@ protected:
    Array2D m_n;     // m_n = m_h - m_g : amount of water above the ground
    Array2D m_vX;    // velocity along X   
    Array2D m_vY;    // velocity along Y
+
+   float m_dt;
 };
 
 #endif

@@ -15,15 +15,18 @@ using namespace std;
 
 CAViewer::~CAViewer()
 {
+	m_shallow = ShallowWater();
 }
 
 void CAViewer::init()
 {
 	Viewer::init();
+	m_shallow.init(10, 10, 1);
 }
 
 void CAViewer::draw()
 {
+	m_shallow.draw();
 }
 
 void CAViewer::keyPressed(unsigned char key, int x, int y)
@@ -48,4 +51,5 @@ void CAViewer::keyPressed(unsigned char key, int x, int y)
 
 void CAViewer::animate() 
 {
+	m_shallow.computeOneStep();
 }
