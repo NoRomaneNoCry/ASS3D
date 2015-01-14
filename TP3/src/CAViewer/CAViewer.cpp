@@ -21,7 +21,7 @@ CAViewer::~CAViewer()
 void CAViewer::init()
 {
 	Viewer::init();
-	m_shallow.init(10, 10, 1);
+	m_shallow.init(20, 20, 0.1);
 }
 
 void CAViewer::draw()

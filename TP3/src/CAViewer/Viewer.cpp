@@ -188,6 +188,7 @@ void Viewer::init()
 	glEnable( GL_COLOR_MATERIAL );
 	//glDisable( GL_COLOR_MATERIAL );
 
+	glPointSize(0.5);
 
 	glLineWidth(4);
 

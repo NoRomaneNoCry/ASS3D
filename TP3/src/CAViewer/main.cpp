@@ -123,7 +123,6 @@ int main(int argc, char **argv)
 	glutPassiveMotionFunc(processMousePassiveMotion);
 	//    glutEntryFunc(processMouseEntry);
 
-
 	// Notre init:
 	GLInit(640, 480);
 

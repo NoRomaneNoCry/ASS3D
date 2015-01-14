@@ -10,7 +10,7 @@ public:
    void init(const int DIMX, const int DIMY, const float _dt);
    void draw() const;
    void computeOneStep();
-   void advect(Array2D & dest, const Array2D & src);
+   Array2D advect(const Array2D & src);
    void updateHeight();
    void updateVelocities();
    
