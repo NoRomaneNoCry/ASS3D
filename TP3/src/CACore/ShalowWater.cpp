@@ -15,20 +15,24 @@ ShallowWater::ShallowWater() {
 	m_g_normals = Array2D<math::Vec3f>();
 }
 
-void ShallowWater::init(const int DIMX, const int DIMY, const float _dt) {
+void ShallowWater::init(const int DIMX, const int DIMY, const float _dt, 
+	const float _dx, const float _dy) {
 
 	m_dt = _dt;
+	m_dx = _dx;
+	m_dy = _dy;
+
 	m_g.init(DIMX, DIMY);
 	m_n.init(DIMX, DIMY);
 	m_vX.init(DIMX, DIMY);
 	m_vY.init(DIMX, DIMY);
 	m_h.init(DIMX, DIMY);
 
-	m_g.setAll(0);
 	m_n.setAll(1);
 	m_n.setValue(4,4,4); m_n.setValue(4,5,6); m_n.setValue(4,6,4);
 	m_n.setValue(5,4,4); m_n.setValue(5,5,6); m_n.setValue(5,6,4);
 	m_n.setValue(6,4,4); m_n.setValue(6,5,6); m_n.setValue(6,6,4);
+
 	plus(m_g, m_n, m_h);
 	m_vX.setAll(0);
 	m_vY.setAll(0);
@@ -39,40 +43,39 @@ void ShallowWater::init(const int DIMX, const int DIMY, const float _dt) {
 void ShallowWater::draw() const {
 
 	Array2D<math::Vec3f> normals;
-	normals = computeNormals(m_n);
+	normals = computeNormals(m_h);
 
 	glBegin(GL_QUADS);
-	glColor4f(0.0,0.4,0.8, 0.5);
-	for(int i = 0; i < m_n.getDimX()-1; i++) {
-		for(int j = 0; j < m_n.getDimY()-1; j++) {
-			glNormal3f(normals(i,j).x, normals(i,j).y, normals(i,j).z);
-			glVertex3f(i, m_n(i, j), j);
-			glNormal3f(normals(i+1,j).x, normals(i+1,j).y, normals(i+1,j).z);
-			glVertex3f(i+1, m_n(i+1, j), j);
-			glNormal3f(normals(i+1,j+1).x, normals(i+1,j+1).y, normals(i+1,j+1).z);
-			glVertex3f(i+1, m_n(i+1, j+1), j+1);
-			glNormal3f(normals(i,j+1).x, normals(i,j+1).y, normals(i,j+1).z);
-			glVertex3f(i, m_n(i, j+1), j+1);
+	glColor4f(0.0,0.4,0.8,0.5);
+	for(int i = 0; i < m_h.getDimX()-1; i++) {
+		for(int j = 0; j < m_h.getDimY()-1; j++) {
+			glNormal3fv(normals(i, j));
+			glVertex3f(i*m_dx, m_h(i, j), j*m_dy);
+			glNormal3fv(normals(i+1,j));
+			glVertex3f((i+1)*m_dx, m_h(i+1, j), j*m_dy);
+			glNormal3fv(normals(i+1,j+1));
+			glVertex3f((i+1)*m_dx, m_h(i+1, j+1), (j+1)*m_dy);
+			glNormal3fv(normals(i,j+1));
+			glVertex3f(i*m_dx, m_h(i, j+1), (j+1)*m_dy);
 		}
 	}
 	glEnd();
 
 	glBegin(GL_QUADS);
-	glColor3f(0.5,0.5,0.5);
+	glColor3f(0.4,0.2,0.0);
 	for(int i = 0; i < m_g.getDimX()-1; i++) {
 		for(int j = 0; j < m_g.getDimY()-1; j++) {
-			glNormal3f(m_g_normals(i,j).x, m_g_normals(i,j).y, m_g_normals(i,j).z);
-			glVertex3f(i, m_g(i, j), j);
-			glNormal3f(m_g_normals(i+1,j).x, m_g_normals(i+1,j).y, m_g_normals(i+1,j).z);
-			glVertex3f(i+1, m_g(i+1, j), j);
-			glNormal3f(m_g_normals(i+1,j+1).x, m_g_normals(i+1,j+1).y, m_g_normals(i+1,j+1).z);
-			glVertex3f(i+1, m_g(i+1, j+1), j+1);
-			glNormal3f(m_g_normals(i,j+1).x, m_g_normals(i,j+1).y, m_g_normals(i,j+1).z);
-			glVertex3f(i, m_g(i, j+1), j+1);
+			glNormal3fv(m_g_normals(i,j));
+			glVertex3f(i*m_dx, m_g(i, j), j*m_dy);
+			glNormal3fv(m_g_normals(i+1,j));
+			glVertex3f((i+1)*m_dx, m_g(i+1, j), j*m_dy);
+			glNormal3fv(m_g_normals(i+1,j+1));
+			glVertex3f((i+1)*m_dx, m_g(i+1, j+1), (j+1)*m_dy);
+			glNormal3fv(m_g_normals(i,j+1));
+			glVertex3f(i*m_dx, m_g(i, j+1), (j+1)*m_dy);
 		}
 	}
 	glEnd();
-
 }
 
 void ShallowWater::computeOneStep() {
@@ -118,8 +121,8 @@ void ShallowWater::updateHeight() {
 
 	for(int j = 1; j < m_n.getDimY()-1; j++) {
 		for(int i = 1; i < m_n.getDimX()-1; i++) {
-			tempN.addValue(i, j, - m_n(i, j) * m_dt * ( (m_vX(i+1, j) - m_vX(i, j)) 
-				+ (m_vY(i, j+1) - m_vY(i, j)) ) );
+			tempN.addValue(i, j, - m_n(i, j) * m_dt * ( (m_vX(i+1, j) - m_vX(i, j))
+				/ m_dx + (m_vY(i, j+1) - m_vY(i, j)) / m_dy ) );
 		}
 	}
 	m_n = tempN;
@@ -131,12 +134,12 @@ void ShallowWater::updateVelocities() {
 
 	for(int j = 1; j < m_h.getDimY(); j++) {
 		for(int i = 2; i < m_h.getDimX(); i++) {
-			m_vX.addValue(i, j, a * m_dt * (m_h(i-1, j) - m_h(i, j)) );
+			m_vX.addValue(i, j, a * m_dt * ((m_h(i-1, j) - m_h(i, j)) / m_dx));
 		}
 	}
 	for(int j = 2; j < m_h.getDimY(); j++) {
 		for(int i = 1; i < m_h.getDimX(); i++) {
-			m_vY.addValue(i, j, a * m_dt * (m_h(i, j-1) - m_h(i, j)) );
+			m_vY.addValue(i, j, a * m_dt * ((m_h(i, j-1) - m_h(i, j)) / m_dy));
 		}
 	}
 }
@@ -149,7 +152,7 @@ void ShallowWater::reflectingBoundaries() {
 		m_h.setValue(0, j, m_h(1, j));
 		m_h.setValue(xMax, j, m_h(xMax-1, j));
 		m_vX.setValue(1, j, 0.0);
-		m_vX.setValue(xMax-1, j, 0.0);
+		m_vX.setValue(xMax, j, 0.0);
 		m_vY.setValue(0, j, 0.0);
 		m_vY.setValue(xMax, j, 0.0);
 	}
@@ -159,7 +162,7 @@ void ShallowWater::reflectingBoundaries() {
 		m_vX.setValue(i, 0, 0.0);
 		m_vX.setValue(i, yMax, 0.0);
 		m_vY.setValue(i, 1, 0.0);
-		m_vY.setValue(i, yMax-1, 0.0);
+		m_vY.setValue(i, yMax, 0.0);
 	}
 
 }
@@ -177,10 +180,10 @@ Array2D<math::Vec3f> ShallowWater::computeNormals(const Array2D<float> & src) co
 	for(int i = 0; i < upNorms.getDimX(); i++) {
 		for(int j = 0; j < upNorms.getDimY(); j++) {
 
-			a = math::Vec3f(i, src(i, j), j);
-			b = math::Vec3f(i+1, src(i+1, j), j);
-			c = math::Vec3f(i+1, src(i+1, j+1), j+1);
-			d = math::Vec3f(i, src(i, j+1), j+1);
+			a = math::Vec3f(i*m_dx, src(i, j), j*m_dy);
+			b = math::Vec3f((i+1)*m_dx, src(i+1, j), j*m_dy);
+			c = math::Vec3f((i+1)*m_dx, src(i+1, j+1), (j+1)*m_dy);
+			d = math::Vec3f(i*m_dx, src(i, j+1), (j+1)*m_dy);
 			upNorms.setValue(i, j, d-a ^ b-a);
 			downNorms.setValue(i, j, b-c ^ d-c);
 		}

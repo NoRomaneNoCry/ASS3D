@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 	glutInitWindowPosition(0, 0);
 
 	// Creer une fenetre
-	window = glutCreateWindow("CHARA");
+	window = glutCreateWindow("Shalow Water");
 
 	// La fonction d'affichage est GLDraw
 	glutDisplayFunc(&GLUpdate);
