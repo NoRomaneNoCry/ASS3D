@@ -55,7 +55,6 @@ SET( CHARA_FILES
 			./src/ext/GLee.h
 
 			./src/CACore/Array2D.h
-			./src/CACore/Array2D.cpp
 			./src/CACore/ShalowWater.h
 			./src/CACore/ShalowWater.cpp
 

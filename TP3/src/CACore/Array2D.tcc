@@ -2,48 +2,58 @@
 #include <cassert>
 #include <iostream>
 
-Array2D::Array2D() { 
+template <typename T>
+Array2D<T>::Array2D() { 
 	m_dimX = m_dimY = 0;
+	m_data = std::vector<T>();
 }
 
-void Array2D::init(const int DIMX, const int DIMY) { 
+template <typename T>
+void Array2D<T>::init(const int DIMX, const int DIMY) { 
 
 	m_dimX = DIMX; 
 	m_dimY = DIMY; 
 	m_data.resize(m_dimX*m_dimY); 
 }
 
-void Array2D::setAll(const float v) { 
+template <typename T>
+void Array2D<T>::setAll(const T v) { 
 	m_data.assign(m_dimX*m_dimY, v); 
 }
 
-const int Array2D::getDimX() const { 
+template <typename T>
+const int Array2D<T>::getDimX() const { 
 	return m_dimX; 
 }
  
-const int Array2D::getDimY() const { 
+template <typename T>
+const int Array2D<T>::getDimY() const { 
 	return m_dimY; 
 }
 
-void Array2D::setValue(int x, int y, float value) {
+template <typename T>
+void Array2D<T>::setValue(int x, int y, T value) {
 
 	assert( x>=0 && x<m_dimX && y>=0 && y<m_dimY);
 	m_data[ y*m_dimX+x ] = value;
 }
 
-void Array2D::addValue(int x, int y, float value) {
+template <typename T>
+void Array2D<T>::addValue(int x, int y, T value) {
 
 	assert( x>=0 && x<m_dimX && y>=0 && y<m_dimY);
 	m_data[ y*m_dimX+x ] += value;
 }
 
-float Array2D::operator()(const int x, const int y) const { 
+template <typename T>
+T Array2D<T>::operator()(const int x, const int y) const { 
 
 	assert( x>=0 && x<m_dimX && y>=0 && y<m_dimY);
     return m_data[ y*m_dimX+x ]; 
 }
 
-float Array2D::interpolate(const float x, const float y) const {
+template <typename T>
+T Array2D<T>::interpolate(const float x, const float y) const {
 
 	if ((x < 0) || (x > m_dimX) || (y < 0) || (y > m_dimY)) 
 		return 0.f;
@@ -54,13 +64,14 @@ float Array2D::interpolate(const float x, const float y) const {
 		return operator()(X,Y);
 	}
 
-	float IX_b = (x-X)*operator()(X+1,Y) + (X+1-x)*operator()(X,Y);
-	float IX_h = (x-X)*operator()(X+1,Y+1) + (X+1-x)*operator()(X,Y+1);
+	T IX_b = (x-X)*operator()(X+1,Y) + (X+1-x)*operator()(X,Y);
+	T IX_h = (x-X)*operator()(X+1,Y+1) + (X+1-x)*operator()(X,Y+1);
 
 	return (y-Y) * IX_h + (Y+1-y) * IX_b;
 }
 
-void plus(const Array2D & op1, const Array2D & op2, Array2D & res) {
+template <typename T>
+void plus(const Array2D<T> & op1, const Array2D<T> & op2, Array2D<T> & res) {
 
 	assert(op1.getDimX() == op2.getDimX() && op1.getDimY() == op2.getDimY());
 

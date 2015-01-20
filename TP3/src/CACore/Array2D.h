@@ -3,24 +3,26 @@
 
 #include <vector>
 
+template <typename T>
 class Array2D
 {
 public:
    Array2D();
    void init(const int DIMX, const int DIMY);
-   void setAll(const float v);
+   void setAll(const T v);
    const int getDimX() const;
    const int getDimY() const;
-   void setValue(int x, int y, float value);
-   void addValue(int x, int y, float value);
-   float operator()(const int x, const int y) const;
-   float interpolate(const float x, const float y) const;
+   void setValue(int x, int y, T value);
+   void addValue(int x, int y, T value);
+   T operator()(const int x, const int y) const;
+   T interpolate(const float x, const float y) const;
    
 protected:
-   std::vector<float> m_data;
+   std::vector<T> m_data;
    int m_dimX, m_dimY;
 };
 
-void plus(const Array2D & op1, const Array2D & op2, Array2D & res);
+template <typename T>
+void plus(const Array2D<T> & op1, const Array2D<T> & op2, Array2D<T> & res);
 
 #endif
