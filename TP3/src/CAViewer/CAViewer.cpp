@@ -41,6 +41,11 @@ void CAViewer::keyPressed(unsigned char key, int x, int y)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		handled = true;
 	}
+	else if(key=='n')
+	{
+		m_shallow.computeOneStep();
+		handled = true;
+	}
 
 	if (!handled)
 	{

@@ -15,6 +15,7 @@ public:
    Array2D<float> advect(const Array2D<float> & src);
    void updateHeight();
    void updateVelocities();
+   void reflectingBoundaries();
    Array2D<math::Vec3f> computeNormals(const Array2D<float> & src) const;
    
 protected:
