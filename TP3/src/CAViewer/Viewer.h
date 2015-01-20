@@ -8,7 +8,7 @@
 class Viewer
 {
 public:
-	Viewer() : bLight(true), bAxe(true), bGrid(true), bBlend(false), bWireframe(false), bAnimate(false) {}
+	Viewer() : bLight(true), bAxe(true), bGrid(true), bBlend(true), bWireframe(false), bAnimate(false) {}
 	virtual ~Viewer ();
 	virtual void draw();
 	virtual void init();
@@ -26,8 +26,8 @@ protected :
 	bool bLight;    // lighting on/off
 	bool bAxe;		// draw Axe X,Y,Z
 	bool bGrid;		// draw Grid
-	bool bBlend;
-	bool bWireframe;
+	bool bBlend;	// transparence on/off
+	bool bWireframe; 
 	bool bAnimate;
 	GLfloat LightPosition[4];
 
