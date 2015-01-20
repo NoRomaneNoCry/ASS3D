@@ -174,7 +174,8 @@ void Viewer::init()
 	// Indique à GL de calculer la couleur suivant la formule
 	// couleur_du_buffer = alpha * couleur_polygone + (1-alpha)*couleur_du_buffer_de_fond
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glDisable(GL_BLEND);
+	if(bBlend) glEnable(GL_BLEND);
+	else glDisable(GL_BLEND);
 
 	// Indique à GL d'eliminer les fragments du polygones qui sont transparents
 	// (On ne garde que les pixel dont alpha>0.01, )
