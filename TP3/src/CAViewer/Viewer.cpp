@@ -133,9 +133,9 @@ void Viewer::init()
 
 	glShadeModel(GL_SMOOTH);
 
-	LightPosition[0] = 100.0f;
-	LightPosition[1] = 300.0f;
-	LightPosition[2] = 100.0f;
+	LightPosition[0] = 50.0f;
+	LightPosition[1] = 10.0f;
+	LightPosition[2] = 50.0f;
 	LightPosition[3] = 1.0f;
 
 	const float ambiant=0.02;
