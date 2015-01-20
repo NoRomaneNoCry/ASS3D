@@ -163,11 +163,29 @@ Array2D<math::Vec3f> ShallowWater::computeNormals(const Array2D<float> & src) co
 		}
 	}
 
-	for(int i = 1; i < src.getDimX()-1; i++) {
-		for(int j = 1; j < src.getDimY()-1; j++) {
-			temp.setValue(i, j, ((downNorms(i-1, j-1) + upNorms(i, j-1)
-				+ downNorms(i, j-1) + upNorms(i-1, j) + downNorms(i-1, j)
-				+ upNorms(i, j) ) / 6).normalize());
+	for(int i = 0; i < src.getDimX(); i++) {
+		for(int j = 0; j < src.getDimY(); j++) {
+
+			math::Vec3f tmp(0.0, 0.0, 0.0);
+			int tmpNb = 0;
+			if(i-1 >= 0 && j < src.getDimY()-1) {
+				tmpNb += 2;
+				tmp += upNorms(i-1, j) + downNorms(i-1, j);
+			}
+			if(j-1 >= 0 && i < src.getDimX()-1) {
+				tmpNb += 2;
+				tmp += upNorms(i, j-1) + downNorms(i, j-1);
+			}
+			if(j-1 >= 0 && i-1 >= 0) {
+				tmpNb++;
+				tmp += downNorms(i-1, j-1);
+			}
+			if(i < src.getDimX()-1 && j < src.getDimY()-1) {
+				tmpNb++;
+				tmp += upNorms(i, j);
+			}
+
+			temp.setValue(i, j, (tmp/tmpNb).normalize());
 		}
 	}
 	return temp;
