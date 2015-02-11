@@ -16,7 +16,7 @@ void CAParticle::computeOneStep(const float dt) {
 
 	if(mass > 0) {
 		/* Mise à jour de la vitesse */
-		v = v + dt * (f/mass);
+		v = v + dt * f * mass;
 
 		/* Mise à jour de la position */
 		p = p + dt * v;
@@ -30,10 +30,22 @@ math::Vec3f CAParticle::getPosition() const {
 	return p;
 }
 
+math::Vec3f & CAParticle::setPosition() {
+	return p;
+}
+
 math::Vec3f CAParticle::getSpeed() const {
+	return v;
+}
+
+math::Vec3f & CAParticle::setSpeed() {
 	return v;
 }
 
 void CAParticle::modifyMass(const float _mass) {
 	mass = _mass;
+}
+
+void CAParticle::modifyYposition(const float _pos) {
+	p.y = _pos;
 }

@@ -17,9 +17,13 @@ public:
    void updateHeight();
    void updateVelocities();
    void reflectingBoundaries();
+   void checkingWaterUnderGround();
    Array2D<math::Vec3f> computeNormals(const Array2D<float> & src) const;
    
 protected:
+
+   enum State {DRY, FLUID};
+
    Array2D<float> m_g;     // height of the ground (0 if flat)
    Array2D<float> m_h;     // height of the water : the thing to compute and 
                            //to draw
@@ -28,9 +32,10 @@ protected:
    Array2D<float> m_vX;    // velocity along X   
    Array2D<float> m_vY;    // velocity along Y
    Array2D<math::Vec3f> m_g_normals; // normals for the ground
+   Array2D<State> m_n_flags;
 
-   float m_dt;
-   float m_dx;
+   float m_dt;    // time between two computational steps
+   float m_dx;    
    float m_dy;
 };
 

@@ -29,10 +29,15 @@ void ShallowWater::init(const int DIMX, const int DIMY, const float _dt,
 	m_h.init(DIMX, DIMY);
 
 	m_n.setAll(1);
-	m_n.setValue(4,4,4); m_n.setValue(4,5,6); m_n.setValue(4,6,4);
-	m_n.setValue(5,4,4); m_n.setValue(5,5,6); m_n.setValue(5,6,4);
-	m_n.setValue(6,4,4); m_n.setValue(6,5,6); m_n.setValue(6,6,4);
+	m_n.setValue(4,4,2); m_n.setValue(4,5,3); m_n.setValue(4,6,2);
+	m_n.setValue(5,4,2); m_n.setValue(5,5,3); m_n.setValue(5,6,2);
 
+	for(int i = 14; i < DIMX; i++) {
+		m_g.setValue(i, 0, 2.5);
+		m_g.setValue(i, 1, 2);
+	}
+
+	//checkingWaterUnderGround();
 	plus(m_g, m_n, m_h);
 	m_vX.setAll(0);
 	m_vY.setAll(0);
@@ -46,7 +51,7 @@ void ShallowWater::draw() const {
 	normals = computeNormals(m_h);
 
 	glBegin(GL_QUADS);
-	glColor4f(0.0,0.4,0.8,0.5);
+	glColor4f(0.0,0.4,0.8,0.8);
 	for(int i = 0; i < m_h.getDimX()-1; i++) {
 		for(int j = 0; j < m_h.getDimY()-1; j++) {
 			glNormal3fv(normals(i, j));
@@ -165,6 +170,16 @@ void ShallowWater::reflectingBoundaries() {
 		m_vY.setValue(i, yMax, 0.0);
 	}
 
+}
+
+void ShallowWater::checkingWaterUnderGround() {
+
+	for(int i = 0; i < m_n.getDimX(); i++) {
+		for(int j = 0; j < m_n.getDimY(); j++) {
+			if(m_n(i, j) < m_g(i, j))
+				m_n.setValue(i, j, 0.0);
+		}
+	}
 }
 
 Array2D<math::Vec3f> ShallowWater::computeNormals(const Array2D<float> & src) const {

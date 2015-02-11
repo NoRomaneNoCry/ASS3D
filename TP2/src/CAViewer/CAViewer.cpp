@@ -20,7 +20,7 @@ CAViewer::~CAViewer()
 void CAViewer::init()
 {
 	Viewer::init();
-	m_world.init(3, 4);
+	m_world.init(15, 15);
 }
 
 void CAViewer::draw()
@@ -50,5 +50,5 @@ void CAViewer::keyPressed(unsigned char key, int x, int y)
 
 void CAViewer::animate() 
 {
-	m_world.computeOneStep(0.1);
+	m_world.computeOneStep(0.05);
 }
