@@ -42,7 +42,7 @@ void CAViewer::init()
 {
 	Viewer::init();
 
-	std::string fn_front = "../data/Robot1.bvh";
+	std::string fn_front = "../data/danse.bvh";
 	std::string test2 = "../data/Robot2.bvh";
 
 	if (fn_front!="")
@@ -100,7 +100,9 @@ void CAViewer::keyPressed(unsigned char key, int x, int y)
 	else
 	if(key == '6')
 	{
-		if(m_nodeID < m_motionGraph->getNumGraphNode() - 1)
+		std::cout << "Node ID " << m_nodeID << std::endl;
+		if(m_nodeID < m_motionGraph->getNumGraphNode() - 1
+			&& (m_motionGraph->getNode(m_nodeID)).getNumNext() > 0)
 			m_nodeID = (m_motionGraph->getNode(m_nodeID)).getNext(
 				rand() % (m_motionGraph->getNode(m_nodeID)).getNumNext());
 		else
