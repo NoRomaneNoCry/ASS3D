@@ -118,21 +118,12 @@ float CASkeleton::distance(const CASkeleton& skel) const {
 
 	float distance = 0.f;
 
-	for(int i = 0; i < m_joint.size(); i++) {
+	for(int i = 1; i < m_joint.size(); i++) {
 
 		math::Vec3f difference = skel.m_joint[i].m_transLocal2world 
 			- m_joint[i].m_transLocal2world;
-		distance += difference.squaredNorm();
+		distance += difference.norm();
 	}
-
-	return distance;
-}
-
-float CASkeleton::temporalDistance(const CASkeleton& skel) const {
-
-	float distance = 0.f;
-
-	// TODO
 
 	return distance;
 }

@@ -40,64 +40,41 @@ void CAViewer::init()
 {
 	Viewer::init();
 
-	//std::string fn_front = "G:/alex/code/CharAnim_m2pro/data/OneArm.bvh";
-	//std::string fn_front = "/home/pers/alexandre.meyer/code/CharAnim_m2pro/data/OneArm.bvh";
 	std::string fn_front = "../data/Robot1.bvh";
+	std::string test2 = "../data/Robot2.bvh";
 
 	if (fn_front!="")
 	{
 		std::string current_file( fn_front );
 		printf("%s\n", current_file.c_str());
 		m_bvh = new BVH(current_file.c_str(), true );
+		m_bvh2 = new BVH(test2.c_str(), true);
 
 		cout<<"BVH"<<endl;
 		cout<<*m_bvh<<endl;
 		cout<<"------------"<<endl;
 
-		m_skel = new CASkeleton(*m_bvh);
-
 		m_motionGraph = new CAMotionGraph();
 		m_motionGraph->addBVH(m_bvh);
+		m_motionGraph->addBVH(m_bvh2);
 		m_motionGraph->showMotionGraph();
 	}
 	else cout<<"No BVH\n";
 
     m_target.set( 10, 10, 0);
-
-//    // TEST quaternion (ne sert à rien)
-//    math::Quaternion q1( math::Vec3f(0,0,1),  0.08f);
-//    math::Quaternion q2( math::Vec3f(0,0,1),  0.04f);
-//    math::Quaternion qr;
-//    qr = math::Quaternion::slerp( q1, q2, 0.5f);
-//    math::Vec3f v;
-//    float a;
-//    qr.getAxisAngle(v,a);
-//    cout<<"v="<<v<<"  angle="<<a<<endl;
-//
-//
-//    math::QuaternionD qq1( math::Vec3d(0,0,1),  0.08);
-//    math::QuaternionD qq2( math::Vec3d(0,0,1),  0.04);
-//    math::QuaternionD qqr;
-//    qqr = math::QuaternionD::slerp( qq1, qq2, 0.5);
-//    math::Vec3d vv;
-//    double aa;
-//    qqr.getAxisAngle(vv,aa);
-//    cout<<"vv="<<vv<<"  angleD="<<aa<<endl;
-
+    m_nodeID = 0;
 }
 
 
 
 void CAViewer::draw()
 {
-	glPushMatrix();
-	//if (m_skel) m_skel->render();
-
     glColor3f(0, 0, 1);
-    m_skel->setPose(*m_bvh, m_bvhFrame);
+    
+    CAGraphNode node = m_motionGraph->getNode(m_nodeID);
+    m_skel = new CASkeleton(*(m_motionGraph->getBVH(node.getIdBVH())));
+    m_skel->setPose(*(m_motionGraph->getBVH(node.getIdBVH())), node.getFrame());
     m_skel->drawGL();
-
-	glPopMatrix();
 }
 
 
@@ -119,6 +96,15 @@ void CAViewer::keyPressed(unsigned char key, int x, int y)
 		handled = true;
 	}
 	else
+	if(key == '6')
+	{
+		if(m_nodeID < m_motionGraph->getNumGraphNode() - 1)
+			m_nodeID = (m_motionGraph->getNode(m_nodeID)).getNext(0);
+		else
+			std::cout << "Plus de nodes dans le graphe" << std::endl;
+		std::cout << "Node id = " << m_nodeID << std::endl;
+		handled = true;
+	}
 	if (key=='w')
 	{
 		bWireframe = !bWireframe;

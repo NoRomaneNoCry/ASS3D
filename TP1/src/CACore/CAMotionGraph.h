@@ -63,6 +63,7 @@ public:
 	const chara::BVH * getBVH(int index) const;
 
 	void addNode(const CAGraphNode & node);
+	CAGraphNode & getNode(GraphNodeID index);
 	int getNumGraphNode() const;
 
 	void showMotionGraph() const;

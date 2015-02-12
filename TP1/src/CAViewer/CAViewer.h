@@ -39,6 +39,7 @@ protected :
 
 	//! mocap data
 	chara::BVH*			m_bvh;
+	chara::BVH* m_bvh2;
 	//! mocap frame number (when mocap is used)
 	int m_bvhFrame;
 
@@ -50,6 +51,9 @@ protected :
 
 	//! Animation graph (build from the mocap-BVH data m_bvh)
 	CAMotionGraph * m_motionGraph;
+
+	int m_nodeID;
+	
 
 };
 

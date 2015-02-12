@@ -30,7 +30,7 @@ int CAGraphNode::getNext(int index) const {
 	return (int)m_idsNext[index];
 }
 
-CAMotionGraph::CAMotionGraph() : m_seuilCompatibilite(200.f) {
+CAMotionGraph::CAMotionGraph() : m_seuilCompatibilite(100.f) {
 
 	m_BVH = std::vector<chara::BVH *>();
 	m_graphNode = std::vector<CAGraphNode>();
@@ -39,6 +39,7 @@ CAMotionGraph::CAMotionGraph() : m_seuilCompatibilite(200.f) {
 void CAMotionGraph::addBVH(chara::BVH * bvh) {
 	
 	m_BVH.push_back(bvh);
+	int nbNodes = getNumGraphNode();
 
 	for(int frameNb = 0; frameNb < bvh->getNumFrame(); frameNb++) {
 		
@@ -46,21 +47,21 @@ void CAMotionGraph::addBVH(chara::BVH * bvh) {
 		addNode(node);
 		
 		if(frameNb != 0)
-			m_graphNode[frameNb-1].addNext(frameNb);
+			m_graphNode[nbNodes + frameNb-1].addNext(nbNodes + frameNb);
 
 		// Calcul des distances aux autres noeuds 
 		CASkeleton current_skel = CASkeleton(*bvh);
 		current_skel.setPose(*bvh, frameNb);
-		
+
 		for(int i = 0; i < getNumGraphNode() - 1; i++) {
 
 			CASkeleton other_skel = CASkeleton(*(m_BVH[m_graphNode[i].getIdBVH()]));
 			other_skel.setPose(*(m_BVH[m_graphNode[i].getIdBVH()]), 
 				m_graphNode[i].getFrame());
 
-
-			if(current_skel.distance(other_skel) < m_seuilCompatibilite)
-				m_graphNode[i].addNext(frameNb);
+			if(current_skel.distance(other_skel) < m_seuilCompatibilite) {
+				m_graphNode[i].addNext(nbNodes + frameNb);
+			}
 		}
 	}
 }
@@ -79,6 +80,10 @@ void CAMotionGraph::addNode(const CAGraphNode & node) {
 
 int CAMotionGraph::getNumGraphNode() const {
 	return m_graphNode.size();
+}
+
+CAGraphNode & CAMotionGraph::getNode(GraphNodeID index) {
+	return m_graphNode[index];
 }
 
 void CAMotionGraph::showMotionGraph() const {
