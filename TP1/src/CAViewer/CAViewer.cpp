@@ -6,6 +6,7 @@
 #include <glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <cstdlib>
 
 #include "CAViewer.h"
 #include <BVH.h>
@@ -24,7 +25,8 @@ void CAViewer::help()
 {
 	printf("Animation:\n");
 	printf("   n: Next character pose\n");
-	printf("   b: Back(Previous) character pose");
+	printf("   b: Back(Previous) character pose\n");
+	printf("   6: Next node in motion graph\n");
 	printf("   shift+arrows: Move the target point");
 	Viewer::help();
 }
@@ -48,7 +50,7 @@ void CAViewer::init()
 		std::string current_file( fn_front );
 		printf("%s\n", current_file.c_str());
 		m_bvh = new BVH(current_file.c_str(), true );
-		m_bvh2 = new BVH(test2.c_str(), true);
+		BVH * bvh2 = new BVH(test2.c_str(), true);
 
 		cout<<"BVH"<<endl;
 		cout<<*m_bvh<<endl;
@@ -56,7 +58,7 @@ void CAViewer::init()
 
 		m_motionGraph = new CAMotionGraph();
 		m_motionGraph->addBVH(m_bvh);
-		m_motionGraph->addBVH(m_bvh2);
+		m_motionGraph->addBVH(bvh2);
 		m_motionGraph->showMotionGraph();
 	}
 	else cout<<"No BVH\n";
@@ -70,7 +72,7 @@ void CAViewer::init()
 void CAViewer::draw()
 {
     glColor3f(0, 0, 1);
-    
+
     CAGraphNode node = m_motionGraph->getNode(m_nodeID);
     m_skel = new CASkeleton(*(m_motionGraph->getBVH(node.getIdBVH())));
     m_skel->setPose(*(m_motionGraph->getBVH(node.getIdBVH())), node.getFrame());
@@ -99,10 +101,10 @@ void CAViewer::keyPressed(unsigned char key, int x, int y)
 	if(key == '6')
 	{
 		if(m_nodeID < m_motionGraph->getNumGraphNode() - 1)
-			m_nodeID = (m_motionGraph->getNode(m_nodeID)).getNext(0);
+			m_nodeID = (m_motionGraph->getNode(m_nodeID)).getNext(
+				rand() % (m_motionGraph->getNode(m_nodeID)).getNumNext());
 		else
 			std::cout << "Plus de nodes dans le graphe" << std::endl;
-		std::cout << "Node id = " << m_nodeID << std::endl;
 		handled = true;
 	}
 	if (key=='w')

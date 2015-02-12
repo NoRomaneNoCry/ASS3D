@@ -38,8 +38,7 @@ protected :
 	bool isPhysics;
 
 	//! mocap data
-	chara::BVH*			m_bvh;
-	chara::BVH* m_bvh2;
+	chara::BVH*	m_bvh;
 	//! mocap frame number (when mocap is used)
 	int m_bvhFrame;
 
